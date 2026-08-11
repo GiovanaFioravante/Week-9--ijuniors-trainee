@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+/generated/prisma
+
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
+*.code-workspace
