@@ -4,7 +4,7 @@
   "description": "��#\u0000 \u0000W\u0000e\u0000e\u0000k\u0000-\u00007\u0000-\u0000-\u0000-\u0000i\u0000j\u0000u\u0000n\u0000i\u0000o\u0000r\u0000-\u0000t\u0000r\u0000a\u0000i\u0000n\u0000e\u0000e\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
   },
   "repository": {
     "type": "git",
