@@ -1,8 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router'
+import axios from 'axios'
+import { api } from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
 
-export function Login() {
+export function Register() {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [erro, setErro] = useState<string | null>(null)
@@ -14,13 +16,23 @@ export function Login() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setErro(null)
-    setCarregando(true)
 
+    if (senha.length < 6) {
+      setErro('A senha deve ter pelo menos 6 caracteres.')
+      return
+    }
+
+    setCarregando(true)
     try {
-      await login(email, senha)
+      await api.post('/auth/register', { email, senha })
+      await login(email, senha)   // já entra logado após cadastrar
       navigate('/')
-    } catch {
-      setErro('E-mail ou senha inválidos.')
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response?.status === 409) {
+        setErro('Este e-mail já está cadastrado.')
+      } else {
+        setErro('Não foi possível criar a conta. Tente novamente.')
+      }
     } finally {
       setCarregando(false)
     }
@@ -30,7 +42,7 @@ export function Login() {
     <div className="min-h-screen bg-zinc-900 text-zinc-100 flex items-center justify-center px-4">
       <div className="w-full max-w-sm bg-zinc-800 border border-zinc-700/50 p-8 rounded-xl shadow-md">
         <h1 className="text-xl font-bold text-white tracking-wide mb-1">G.F. iRepair</h1>
-        <p className="text-sm text-zinc-400 mb-6">Entre com sua conta</p>
+        <p className="text-sm text-zinc-400 mb-6">Crie sua conta</p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
@@ -64,13 +76,14 @@ export function Login() {
             disabled={carregando}
             className="w-full bg-orange-400/80 hover:bg-orange-400 text-zinc-950 font-semibold text-sm py-2.5 rounded-lg mt-2 cursor-pointer transition-colors disabled:opacity-50"
           >
-            {carregando ? 'Entrando...' : 'Entrar'}
+            {carregando ? 'Criando conta...' : 'Criar conta'}
           </button>
         </form>
+
         <p className="text-xs text-zinc-500 mt-6 text-center">
-          Não tem conta?{' '}
-          <Link to="/register" className="text-orange-400/90 hover:text-orange-400 font-medium">
-            Cadastre-se
+          Já tem conta?{' '}
+          <Link to="/login" className="text-orange-400/90 hover:text-orange-400 font-medium">
+            Entrar
           </Link>
         </p>
       </div>

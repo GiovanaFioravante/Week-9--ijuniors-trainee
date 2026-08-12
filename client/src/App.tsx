@@ -6,13 +6,15 @@ import { Login } from "./pages/Login";
 import { DashboardPage } from "./pages/DashboardPage";
 import { ClientsPage } from "./pages/ClientsPage";
 import { ServiceOrdersPage } from "./pages/ServiceOrdersPage";
+import { Register } from "./pages/Register";
 
 export function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
+       <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route element={<PrivateRoute />}>
             <Route element={<MainLayout />}>
