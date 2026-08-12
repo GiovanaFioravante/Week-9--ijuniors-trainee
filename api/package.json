@@ -1,39 +1,33 @@
 {
-  "name": "week-7.2",
+  "name": "irepair-api",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000W\u0000e\u0000e\u0000k\u0000-\u00007\u0000-\u0000-\u0000-\u0000i\u0000j\u0000u\u0000n\u0000i\u0000o\u0000r\u0000-\u0000t\u0000r\u0000a\u0000i\u0000n\u0000e\u0000e\u0000\r\u0000 \u0000",
-  "main": "index.js",
-  "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GiovanaFioravante/Week-7---ijunior-trainee.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "iRepair API - Semana 9 (auth) - iJunior trainee",
+  "main": "src/server.ts",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/GiovanaFioravante/Week-7---ijunior-trainee/issues"
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
   },
-  "homepage": "https://github.com/GiovanaFioravante/Week-7---ijunior-trainee#readme",
   "dependencies": {
     "@prisma/adapter-mariadb": "^7.9.1",
     "@prisma/client": "^7.9.1",
+    "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.5.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^26.2.0",
     "prisma": "^7.9.1",
-    "ts-node-dev": "^2.0.0",
     "tsx": "^4.23.9",
     "typescript": "^5.9.3"
   }

@@ -1,6 +1,16 @@
-// src/index.ts ← apenas sobe o servidor
-import { app } from './config/expressConfig';
+import 'dotenv/config'
+import { createApp } from './config/expressConfig'
 
-app.listen(3030, () => {
-  console.log('🚀 Servidor rodando na porta 3030');
-});
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET não definido nas variáveis de ambiente')
+}
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL não definido nas variáveis de ambiente')
+}
+
+const app = createApp()
+const PORT = process.env.PORT || 3030
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`)
+})
