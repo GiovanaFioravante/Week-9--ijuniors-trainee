@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -16,50 +13,34 @@ model Usuario {
   senha     String
   createdAt DateTime @default(now())
 
-  ordensServico OrdemServico[]
+  serviceOrders ServiceOrder[]
 }
 
-model Cliente {
+model Client {
   id        Int      @id @default(autoincrement())
-  nome      String
+  name      String
+  phone     String
   email     String   @unique
-  telefone  String?
   createdAt DateTime @default(now())
 
-  dispositivos Dispositivo[]
+  serviceOrders ServiceOrder[]
 }
 
-model Dispositivo {
-  id        Int      @id @default(autoincrement())
-  tipo      String
-  marca     String
-  modelo    String
-  createdAt DateTime @default(now())
-
-  clienteId Int
-  cliente   Cliente  @relation(fields: [clienteId], references: [id])
-
-  ordensServico OrdemServico[]
+enum ServiceOrderStatus {
+  open
+  in_progress
+  done
 }
 
-enum StatusOrdem {
-  ABERTA
-  EM_ANDAMENTO
-  CONCLUIDA
-  ENTREGUE
-  CANCELADA
-}
+model ServiceOrder {
+  id        Int                @id @default(autoincrement())
+  device    String
+  issue     String
+  status    ServiceOrderStatus @default(open)
+  createdAt DateTime           @default(now())
 
-model OrdemServico {
-  id        Int         @id @default(autoincrement())
-  descricao String
-  status    StatusOrdem @default(ABERTA)
-  valor     Float?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-
-  dispositivoId Int
-  dispositivo   Dispositivo @relation(fields: [dispositivoId], references: [id])
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
 
   criadoPorId Int
   criadoPor   Usuario @relation(fields: [criadoPorId], references: [id])

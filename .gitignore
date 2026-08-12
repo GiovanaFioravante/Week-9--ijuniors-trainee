@@ -23,10 +23,15 @@ dist-ssr
 *.sln
 *.sw?
 
-/generated/prisma
+generated/
 
 .agents/
 .claude/
 .windsurf/
 skills-lock.json
 *.code-workspace
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
